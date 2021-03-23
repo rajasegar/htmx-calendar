@@ -1,0 +1,27 @@
+.d-flex.justify-content-between.align-items-center
+  h2#current-month #{monthYear}
+  .text-success(hidden='' data-activity-indicator='')
+    .spinner-border.spinner-border-sm
+    span Loading...
+  div
+    .btn-group.btn-group-toggle(data-toggle='buttons')
+      button.btn.btn-secondary(type="button", hx-get="/previous", hx-target="#calendar")
+        img(src="/icons/chevron-left.svg", alt="Previous")
+      button.btn.btn-secondary(type="button", hx-get="/next", hx-target="#calendar")
+        img(src="/icons/chevron-right.svg", alt="Next")
+      button.btn.btn-secondary(type="button", hx-get="/today", hx-target="#calendar") Today
+
+table.table.table-bordered.mt-2(id='calendar-')
+  thead.table-dark
+    tr.text-center
+      each name in dayNames
+        th(style='width:14%') #{name}
+  tbody
+    each row in rows
+      tr.table-light(id='tr-' + row)
+      each col in row
+        - var today = new Date()
+        - var month = today.getMonth()
+        - var year = today.getFullYear()
+        - var date = today.getDate()
+        td(class={'table-info' : col === date && month === currentMonth && year === currentYear }) #{col}

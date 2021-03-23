@@ -9,27 +9,6 @@ html(lang="en")
       .card.mt-3
         .card-header
           h1 Calendar
-        .card-body
-          .d-flex.justify-content-between.align-items-center
-            h2 #{new Date().toDateString()}
-            .text-success(hidden='' data-activity-indicator='')
-              .spinner-border.spinner-border-sm
-              span Loading...
-            div
-              .btn-group.btn-group-toggle(data-toggle='buttons')
-                a.btn.btn-secondary(href="#", title="Previous")
-                  img(src="/icons/chevron-left.svg", alt="Previous")
-                a.btn.btn-secondary(href="#", title="Next")
-                  img(src="/icons/chevron-right.svg", alt="Next")
-                a.btn.btn-secondary(href="#", title="Today") Today
-
-          table.table.table-bordered.mt-2(id='calendar-<%= @start_date.iso8601 %>')
-            thead.table-dark
-              tr.text-center
-                each name in dayNames
-                  th(style='width:14%') #{name}
-            tbody
-              each row in rows
-                tr.table-light(id='tr-' + row)
-                each col in row
-                  td #{col}
+        #calendar.card-body
+          include calendar
+    script(src="https://unpkg.com/htmx.org@1.3.1")
