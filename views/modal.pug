@@ -1,12 +1,31 @@
-#exampleModal.modal.fade.show(tabindex='-1', aria-labelledby='exampleModalLabel' ,
-style="padding-right:15px;display:block;", aria-modal="true", role="dialog")
+#exampleModal.modal.fade.show(tabindex='-1', aria-labelledby='exampleModalLabel', aria-hidden="true")
   .modal-dialog
     .modal-content
       .modal-header
-        h5#exampleModalLabel.modal-title Modal title
+        h5#exampleModalLabel.modal-title New Event
         button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
       .modal-body
-        | ...
+        .btn-group.mt-3(data-controller='button-group' data-reflex-permanent='')
+          input#calendar_event_hour(data-target='button-group.input' type='hidden' name='calendar_event[hour]')
+          button.btn.btn-light(type='button' data-action='click->button-group#select') 1
+          button.btn.btn-light(type='button' data-action='click->button-group#select') 2
+          button.btn.btn-light(type='button' data-action='click->button-group#select') 3
+          button.btn.btn-light(type='button' data-action='click->button-group#select') 4
+          button.btn.btn-light(type='button' data-action='click->button-group#select') 5
+          button.btn.btn-light(type='button' data-action='click->button-group#select') 6
+          button.btn.btn-light(type='button' data-action='click->button-group#select') 7
+          button.btn.btn-light(type='button' data-action='click->button-group#select') 8
+          button.btn.btn-light(type='button' data-action='click->button-group#select') 9
+          button.btn.btn-light(type='button' data-action='click->button-group#select') 10
+          button.btn.btn-light(type='button' data-action='click->button-group#select') 11
+          button.btn.btn-light.active(type='button' data-action='click->button-group#select') 12
+        .btn-group.mt-2(data-controller='button-group' data-reflex-permanent='')
+          input#calendar_event_meridian(data-target='button-group.input' type='hidden' name='calendar_event[meridian]')
+          button.btn.btn-light.active(type='button' data-action='click->button-group#select') AM
+          button.btn.btn-light(type='button' data-action='click->button-group#select') PM
+        .form-group.my-3
+          textarea#calendar_event_description.form-control(placeholder='Description for this event...' rows='3' data-reflex='input->CalendarReflex#validate_calendar_event' data-date='2021-02-28' name='calendar_event[description]' data-action='input->application#__perform')
+
       .modal-footer
         button.btn.btn-secondary(type='button' data-bs-dismiss='modal') Close
         button.btn.btn-primary(type='button') Save changes

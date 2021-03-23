@@ -25,11 +25,10 @@ table.table.table-bordered.mt-2(id='calendar-')
           - var year = today.getFullYear()
           - var date = today.getDate()
           td(class={'table-info' : col === date && month === currentMonth && year === currentYear }, 
-          hx-get="/modal",
-          hx-target="#modals-here",
-          hx-trigger="click",
-          hx-swap="outerHTML"
+          data-bs-toggle="modal",
+          data-bs-target="#exampleModal"
           )
             span #{col}
             .mt-2(style="height:65px;overflow-y:scroll")
 #modals-here
+  include modal
