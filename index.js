@@ -115,6 +115,13 @@ app.get('/today', (req,res) => {
   res.send(markup);
 });
 
+app.get('/modal', (req, res) => {
+  const template = pug.compileFile('views/modal.pug');
+  const monthYear = `${monthNames[currentMonth]} - ${currentYear}`;
+  const markup = template({  });
+  res.send(markup);
+});
+
 
 app.listen(PORT);
 console.log('Listening on port: ' + PORT);

@@ -5,9 +5,9 @@
     span Loading...
   div
     .btn-group.btn-group-toggle(data-toggle='buttons')
-      button.btn.btn-secondary(type="button", hx-get="/previous", hx-target="#calendar")
+      button.btn.btn-dark(type="button", hx-get="/previous", hx-target="#calendar")
         img(src="/icons/chevron-left.svg", alt="Previous")
-      button.btn.btn-secondary(type="button", hx-get="/next", hx-target="#calendar")
+      button.btn.btn-dark(type="button", hx-get="/next", hx-target="#calendar")
         img(src="/icons/chevron-right.svg", alt="Next")
       button.btn.btn-secondary(type="button", hx-get="/today", hx-target="#calendar") Today
 
@@ -18,10 +18,18 @@ table.table.table-bordered.mt-2(id='calendar-')
         th(style='width:14%') #{name}
   tbody
     each row in rows
-      tr.table-light(id='tr-' + row)
-      each col in row
-        - var today = new Date()
-        - var month = today.getMonth()
-        - var year = today.getFullYear()
-        - var date = today.getDate()
-        td(class={'table-info' : col === date && month === currentMonth && year === currentYear }) #{col}
+      tr.table-light
+        each col in row
+          - var today = new Date()
+          - var month = today.getMonth()
+          - var year = today.getFullYear()
+          - var date = today.getDate()
+          td(class={'table-info' : col === date && month === currentMonth && year === currentYear }, 
+          hx-get="/modal",
+          hx-target="#modals-here",
+          hx-trigger="click",
+          hx-swap="outerHTML"
+          )
+            span #{col}
+            .mt-2(style="height:65px;overflow-y:scroll")
+#modals-here
