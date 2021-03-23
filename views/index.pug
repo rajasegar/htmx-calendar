@@ -3,5 +3,33 @@ html(lang="en")
   head
     title Calendar in htmx
     meta(charset="utf8")
+    link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous")
   body
-    h1 Calendar
+    .container
+      .card.mt-3
+        .card-header
+          h1 Calendar
+        .card-body
+          .d-flex.justify-content-between.align-items-center
+            h2 #{new Date().toDateString()}
+            .text-success(hidden='' data-activity-indicator='')
+              .spinner-border.spinner-border-sm
+              span Loading...
+            div
+              .btn-group.btn-group-toggle(data-toggle='buttons')
+                a.btn.btn-secondary(href="#", title="Previous")
+                  img(src="/icons/chevron-left.svg", alt="Previous")
+                a.btn.btn-secondary(href="#", title="Next")
+                  img(src="/icons/chevron-right.svg", alt="Next")
+                a.btn.btn-secondary(href="#", title="Today") Today
+
+          table.table.table-bordered.mt-2(id='calendar-<%= @start_date.iso8601 %>')
+            thead.table-dark
+              tr.text-center
+                each name in dayNames
+                  th(style='width:14%') #{name}
+            tbody
+              each row in rows
+                tr.table-light(id='tr-' + row)
+                each col in row
+                  td #{col}
