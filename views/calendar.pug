@@ -4,12 +4,23 @@
     .spinner-border.spinner-border-sm
     span Loading...
   div
-    .btn-group.btn-group-toggle(data-toggle='buttons')
-      button.btn.btn-dark(type="button", hx-get="/previous", hx-target="#calendar")
-        img(src="/icons/chevron-left.svg", alt="Previous")
-      button.btn.btn-dark(type="button", hx-get="/next", hx-target="#calendar")
-        img(src="/icons/chevron-right.svg", alt="Next")
-      button.btn.btn-secondary(type="button", hx-get="/today", hx-target="#calendar") Today
+    - var today = new Date().toDateString()
+    button.btn.btn-secondary.me-2.btn-sm(type="button", hx-get="/today", hx-target="#calendar",
+    data-bs-toggle="tooltip",
+    data-bs-placement="top",
+    title=today) Today
+
+    button.btn.btn-secondary.ms-2.btn-sm(type="button", hx-get="/previous", hx-target="#calendar", 
+    data-bs-toggle="tooltip", 
+    data-bs-placement="top", 
+    title="Previous Month")
+      img(src="/icons/chevron-left.svg", alt="Previous")
+
+    button.btn.btn-secondary.ms-2.btn-sm(type="button", hx-get="/next", hx-target="#calendar",
+    data-bs-toggle="tooltip",
+    data-bs-placement="top",
+    title="Next Month")
+      img(src="/icons/chevron-right.svg", alt="Next")
 
 table.table.table-bordered.mt-2(id='calendar-')
   thead.table-dark
@@ -24,7 +35,8 @@ table.table.table-bordered.mt-2(id='calendar-')
           - var month = today.getMonth()
           - var year = today.getFullYear()
           - var date = today.getDate()
-          td(class={'table-info' : col === date && month === currentMonth && year === currentYear }, 
+          - var tdId = 'date-' + col + '-' + currentMonth + '-' + currentYear
+          td(id=tdId, class={'table-info' : col === date && month === currentMonth && year === currentYear }, 
           hx-get="/modal?date=" + col + "-" + currentMonth + "-" + currentYear,
           hx-target="#modals-here",
           hx-trigger="click"

@@ -30,8 +30,8 @@
               input.form-check-input(type="radio", name="ampm", value="PM")
               label.form-check-label PM
             .form-group.my-3
-              textarea#calendar_event_description.form-control(placeholder='Description for this event...' rows='3' name='description')
+              textarea#calendar_event_description.form-control(placeholder='Description for this event...' rows='3' name='description', required="true")
 
         .modal-footer
-          button.btn.btn-secondary(type='button' data-bs-dismiss='modal') Close
+          button.btn.btn-secondary(type='button' onclick="closeModal()") Close
           button.btn.btn-primary(type='submit', onclick="closeModal()") Save changes

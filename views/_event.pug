@@ -1,10 +1,14 @@
 .mt-2(id="events-" + date + "-" + month + "-" + year, style="height:65px;overflow-y:auto", hx-swap-oob="true")
-  .bg-white.py-1.px-2.border.mb-1()
-    button.btn.btn-danger.btn-sm.float-end(type='button' aria-label='Close') &times;
+  .bg-white.py-1.px-2.border.mb-1
+    button.btn-close.float-end(type='button' aria-label='Close',
+    _='on click remove #events-' + date + '-' + month + '-' + year + ' from #date-' + date + '-' + month + '-' + year + '  call event.stopPropagation()')
     small.d-block.text-secondary
       | #{time} #{ampm}
-    div
+    div.d-flex
       | #{description}
       small
-        a.ms-2(href='#' ) Edit...
-
+        button.btn.btn-link.ms-2.btn-sm(
+            hx-get="/modal?date=" + col + "-" + month + "-" + year,
+            hx-target="#modals-here",
+            hx-trigger="click"
+            _="on htmx:afterOnLoad wait 10ms then add .show to #modal then add .show to #modal-backdrop") Edit
