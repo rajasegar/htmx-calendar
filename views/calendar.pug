@@ -25,10 +25,12 @@ table.table.table-bordered.mt-2(id='calendar-')
           - var year = today.getFullYear()
           - var date = today.getDate()
           td(class={'table-info' : col === date && month === currentMonth && year === currentYear }, 
-          data-bs-toggle="modal",
-          data-bs-target="#exampleModal"
+          hx-get="/modal?date=" + col + "-" + currentMonth + "-" + currentYear,
+          hx-target="#modals-here",
+          hx-trigger="click"
+          _="on htmx:afterOnLoad wait 10ms then add .show to #modal then add .show to #modal-backdrop"
           )
             span #{col}
-            .mt-2(style="height:65px;overflow-y:scroll")
+            .mt-2(id="events-" + col + "-" + currentMonth + "-" + currentYear,
+              style="height:65px;overflow-y:auto")
 #modals-here
-  include modal

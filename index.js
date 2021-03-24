@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const pug = require('pug');
+const bodyParser = require('body-parser');
 
 const PORT = process.env.PORT || 3000;
 
@@ -25,6 +26,8 @@ const monthNames = [
 const app = express();
 app.set('view engine', 'pug');
 app.use(express.static('assets'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 function getCalendarRows(month, year) {
   const daysInMonth = 32 - new Date(year, month, 32).getDate();
@@ -116,9 +119,27 @@ app.get('/today', (req,res) => {
 });
 
 app.get('/modal', (req, res) => {
+  const { date } = req.query;
   const template = pug.compileFile('views/modal.pug');
-  const monthYear = `${monthNames[currentMonth]} - ${currentYear}`;
-  const markup = template({  });
+  const [_date, month, year] = date.split('-');
+  const currentDate = new Date(year, month, _date).toDateString();
+  const markup = template({ currentDate  });
+  res.send(markup);
+});
+
+app.post('/events', (req, res) => {
+  console.log(req.body);
+  const { date, time, ampm, description } = req.body;
+  const dt = new Date(date);
+  const template = pug.compileFile('views/_event.pug');
+  const markup = template({
+    date: dt.getDate(),
+    month: dt.getMonth(),
+    year: dt.getFullYear(),
+    time,
+    ampm,
+    description
+  });
   res.send(markup);
 });
 

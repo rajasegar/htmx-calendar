@@ -1,0 +1,10 @@
+.mt-2(id="events-" + date + "-" + month + "-" + year, style="height:65px;overflow-y:auto", hx-swap-oob="true")
+  .bg-white.py-1.px-2.border.mb-1()
+    button.btn.btn-danger.btn-sm.float-end(type='button' aria-label='Close') &times;
+    small.d-block.text-secondary
+      | #{time} #{ampm}
+    div
+      | #{description}
+      small
+        a.ms-2(href='#' ) Edit...
+
