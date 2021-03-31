@@ -14,6 +14,8 @@ npm start
 
 You can view app in action at `http://localhost:3000`
 
+![htmx calendar demo gif](htmx-calendar.gif)
+
 
 This project is inspired by the [StimulusReflex](https://expo.stimulusreflex.com/demos/calendar/2021-03-01) Expo which is using RAILS and StimulusJS
 
